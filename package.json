@@ -1,0 +1,19 @@
+{
+  "name": "news_web",
+  "version": "1.0.0",
+  "description": "news website by using express",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Min-92/news_web.git"
+  },
+  "author": "wangmin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Min-92/news_web/issues"
+  },
+  "homepage": "https://github.com/Min-92/news_web#readme"
+}
