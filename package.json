@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/Min-92/news_web#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "http-errors": "^1.7.3",
     "mocha": "^6.1.4",
+    "morgan": "^1.9.1",
     "path": "^0.12.7",
     "pug": "^2.0.4"
   }
