@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Min-92/news_web/issues"
   },
-  "homepage": "https://github.com/Min-92/news_web#readme"
+  "homepage": "https://github.com/Min-92/news_web#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mocha": "^6.1.4",
+    "path": "^0.12.7",
+    "pug": "^2.0.4"
+  }
 }
