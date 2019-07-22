@@ -2,19 +2,19 @@
 
 nodejs Express 를 이용한 news 사이트 제작
 
-# purpose
+## purpose
 
 
-## Main
+### Main
 
 - 뉴스 게시
 - 내용 공유
 
-## Sub
+### Sub
 
 - 의견 나누기
 
-# Function
+## Function
 
 
 - 글 관리
@@ -26,8 +26,29 @@ nodejs Express 를 이용한 news 사이트 제작
 - 회원 관리
     - 로그인
     - 회원가입
+    - 로그아웃
 
-# List of pages
+## List of request
+
+| function                 | method | uri                               |
+| ------------------------ | ------ | --------------------------------- |
+| 글 목록 보기             | get    | /articles                         |
+| 상세 글 보기             | get    | /articles/'articleNumber'         |
+| 글작성 페이지 가져오기   | get    | /new-form                         |
+| 글 post 하기             | post   | /articles                         |
+| 로그인 페이지 가져오기   | get    | /log-in                           |
+| 로그인 하기              | post   | /log-in                           |
+| 회원가입 페이지 가져오기 | get    | /sign-up                          |
+| 회원가입 하기            | post   | /sign-up                          |
+| 댓글 작성하기            | post   | /articles/'articleNumber'/comment |
+| 로그아웃 하기            | post   | /log-out                          |
+| 좋아요 누르기            | post   | /articles/'articleNumber'/like    |
+| 글 수정 페이지 가져오기  | get    | /articles/'articleNumber'/edit    |
+| 글 수정 보내기           | path   | /articles/'articleNumber'         |
+
+
+
+## List of pages
 
 
 1. /news
@@ -36,10 +57,10 @@ nodejs Express 를 이용한 news 사이트 제작
 4. /login
 5. /signup
 
-# Pages
+## Pages
 
 
-## 1. /news
+### 1. /news
 
 ![](https://user-images.githubusercontent.com/26920620/61426508-92b28c80-a955-11e9-9014-e5f67bf65c2d.png)
 
@@ -56,7 +77,7 @@ nodejs Express 를 이용한 news 사이트 제작
         3. 내용
 3. 페이지 넘기기
 
-## 2. /article
+### 2. /article
 
 ![](https://user-images.githubusercontent.com/26920620/61426512-96deaa00-a955-11e9-9a15-50a0fec8345c.png)
 
@@ -68,7 +89,7 @@ nodejs Express 를 이용한 news 사이트 제작
     1. 입력부
     2. 사용자 이름, 내용
 
-## 3. /write
+### 3. /write
 
 ![](https://user-images.githubusercontent.com/26920620/61426517-9a723100-a955-11e9-8043-e848c564f21b.png)
 
@@ -84,7 +105,7 @@ nodejs Express 를 이용한 news 사이트 제작
     1. 제목이 없는 경우
     2. 내용이 없는 경우
 
-## 4. /login
+### 4. /login
 
 ![](https://user-images.githubusercontent.com/26920620/61426522-9e9e4e80-a955-11e9-9e3f-63b6e866b1ee.png)
 
@@ -99,7 +120,7 @@ nodejs Express 를 이용한 news 사이트 제작
 
  
 
-## 5. /signup
+### 5. /signup
 
 ![](https://user-images.githubusercontent.com/26920620/61426528-a231d580-a955-11e9-9521-9b478a62e0f5.png)
 
