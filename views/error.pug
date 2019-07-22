@@ -3,7 +3,8 @@ html
     head 
         meta(charset='utf-8')
         link(rel='stylesheet' href='/css/style.css')
-        title login
+        title error
     body
         main
-    script(type='text/javascript' src='/js/login.js')
+            h1 #{message}
+            h2 #{error.status}
