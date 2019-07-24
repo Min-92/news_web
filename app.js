@@ -8,6 +8,7 @@ const Strategy = require('passport-local').Strategy;
 
 const passportConfig = require('./passport/index');
 const authRouter = require('./routes/auth');
+const articlesRouter = require('./routes/articles');
 
 const port = 3000;
 const mongoURI = 'mongodb://localhost/news';
@@ -35,6 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+app.use('/', articlesRouter);
 app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
