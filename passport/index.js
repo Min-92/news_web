@@ -6,10 +6,10 @@ module.exports = (passport) => {
         usernameField: 'id',
         passwordField: 'pw'
     }, async (id, pw, done) => {
-        const user = await User.findOne({id}, (err, user) => {
-            if(err) return done(err);
-            if(!user) return done(null,false);
-            if(user.pw !== pw) return done(null,false);
+        await User.findOne({ id }, (err, user) => {
+            if (err) return done(err);
+            if (!user) return done(null, false);
+            if (user.pw !== pw) return done(null, false);
             return done(null, user);
         });
     }));
@@ -19,10 +19,10 @@ module.exports = (passport) => {
     });
 
     passport.deserializeUser(function (id, done) {
-        User.findOne({id}, (err, user) => {
-            if(err) return done(err);
-            done(null,user);
+        User.findOne({ id }, (err, user) => {
+            if (err) return done(err);
+            done(null, user);
         })
-    
+
     });
 }

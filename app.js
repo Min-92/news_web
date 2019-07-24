@@ -7,8 +7,7 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 
 const passportConfig = require('./passport/index');
-const loginRouter = require('./routes/login');
-const signupRouter = require('./routes/signup');
+const authRouter = require('./routes/auth');
 
 const port = 3000;
 const mongoURI = 'mongodb://localhost/news';
@@ -36,8 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('/login', loginRouter);
-app.use('/signup', signupRouter);
+app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
     const err = new Error('Not Found');

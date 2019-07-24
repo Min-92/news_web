@@ -16,12 +16,12 @@ class Signup {
         const idTextArea = document.createElement('input');
         const pwTextArea = document.createElement('input');
         const button = document.createElement('input');
-        signupForm.setAttribute('action','/signup');
+        signupForm.setAttribute('action','/auth/signup');
         signupForm.setAttribute('method','POST');
-        idTextArea.setAttribute('name', 'userID');
+        idTextArea.setAttribute('name', 'id');
         idTextArea.setAttribute('type', 'text');
         idTextArea.placeholder = 'Please input your ID';
-        pwTextArea.setAttribute('name', 'userPW');
+        pwTextArea.setAttribute('name', 'pw');
         pwTextArea.setAttribute('type', 'password');
         pwTextArea.placeholder = 'Please input your PW';
         button.setAttribute('type', 'submit');
@@ -43,7 +43,7 @@ class Signup {
 
     setSignUpButton() {
         const signUpForm = document.createElement('form');
-        signUpForm.setAttribute('action', '/login');
+        signUpForm.setAttribute('action', '/auth/login');
         signUpForm.setAttribute('method', 'GET');
         const button = document.createElement('input');
         button.setAttribute('type', 'submit');
