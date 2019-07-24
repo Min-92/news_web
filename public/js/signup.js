@@ -11,13 +11,13 @@ class Signup {
         this.main.appendChild(this.setSignupBox());
     }
 
-    setSignupBox(){
+    setSignupBox() {
         const signupForm = document.createElement('form');
         const idTextArea = document.createElement('input');
         const pwTextArea = document.createElement('input');
         const button = document.createElement('input');
-        signupForm.setAttribute('action','/auth/signup');
-        signupForm.setAttribute('method','POST');
+        signupForm.setAttribute('action', '/auth/signup');
+        signupForm.setAttribute('method', 'POST');
         idTextArea.setAttribute('name', 'id');
         idTextArea.setAttribute('type', 'text');
         idTextArea.placeholder = 'Please input your ID';
