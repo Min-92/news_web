@@ -2,6 +2,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const express = require('express');
 const logger = require('morgan');
+const flash = require('connect-flash');
 const path = require('path');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
@@ -25,16 +26,17 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
     secret: '#newssecret',
     resave: false,
     saveUninitialized: true
 }))
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use('/', articlesRouter);
 app.use('/auth', authRouter);

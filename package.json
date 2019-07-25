@@ -4,6 +4,7 @@
   "description": "news website by using express",
   "main": "index.js",
   "scripts": {
+    "start": "nodejs app.js",
     "test": "mocha"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Min-92/news_web#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "http-errors": "^1.7.3",
@@ -29,6 +31,7 @@
     "pug": "^2.0.4"
   },
   "devDependencies": {
+    "nodemon": "^1.19.1",
     "should": "^13.2.3",
     "sinon": "^7.3.2",
     "supertest": "^4.0.2"

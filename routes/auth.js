@@ -5,18 +5,27 @@ const { User } = require('../models/database');
 const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
+const getMessage = (req) => {
+    const fmsg = req.flash();
+    let message;
+    if (fmsg.error) message = fmsg.error[0];
+    return message
+}
+
 router.get('/login', isNotLoggedIn, (req, res, next) => {
-    res.render('login');
+    const message  = getMessage(req);
+    res.render('login', { title: "Log In", message });
 });
 
 router.post('/login', isNotLoggedIn,
-    passport.authenticate('local', { failureRedirect: '/login' }),
-    (req, res) => {
-        res.redirect('/');
-    });
-
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/auth/login',
+        failureFlash: true
+    }));
 router.get('/signup', (req, res, next) => {
-    res.render('signup');
+    const message  = getMessage(req);
+    res.render('signup', { title: "Sign Up", message });
 });
 
 router.post('/signup', isNotLoggedIn, async (req, res, next) => {
@@ -24,7 +33,8 @@ router.post('/signup', isNotLoggedIn, async (req, res, next) => {
     try {
         const exUser = await User.findOne({ id });
         if (exUser) {
-            return res.redirect('/signup');
+            req.flash('error', 'Existing ID')
+            return res.redirect('/auth/signup');
         }
         await User.create({ id, pw });
         return res.redirect('/');
