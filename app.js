@@ -1,3 +1,4 @@
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const express = require('express');
@@ -27,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 app.use(session({
     secret: '#newssecret',
     resave: false,

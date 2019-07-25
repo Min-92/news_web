@@ -1,10 +1,12 @@
-const express = require('express');
+const bcrypt = require('bcrypt');
 const passport = require('passport');
+const express = require('express');
 const { User } = require('../models/database');
 
 const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
+const saltRounds = 10;
 const getMessage = (req) => {
     const fmsg = req.flash();
     let message;
@@ -36,7 +38,8 @@ router.post('/signup', isNotLoggedIn, async (req, res, next) => {
             req.flash('error', 'Existing ID')
             return res.redirect('/auth/signup');
         }
-        await User.create({ id, pw });
+        const hash = await bcrypt.hash(pw, saltRounds);
+        await User.create({ id, pw:hash });
         return res.redirect('/');
     } catch (error) {
         console.error(error);
