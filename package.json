@@ -4,7 +4,7 @@
   "description": "news website by using express",
   "main": "index.js",
   "scripts": {
-    "start": "nodejs app.js",
+    "start": "node app.js",
     "test": "mocha"
   },
   "repository": {
