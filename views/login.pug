@@ -1,9 +1,17 @@
-doctype html
-html
-    head 
-        meta(charset='utf-8')
-        link(rel='stylesheet' href='/css/style.css')
-        title login
-    body
-        main
-    script(type='text/javascript' src='/js/login.js')
+extends layout
+
+block content
+    header(class="body-header")
+        div(class="title")= title
+        form(action="/auth/signup", method="get", class="form")
+            input(type="submit", value="Sign Up", class="button")
+    main
+        form(action="/auth/login", method="post", class= "auth-form")
+            header(class="header")
+                span Wellcome
+                div= message
+            div(class="content")    
+                input(type="text", name="id", placeholder = "User ID", class="input")
+                input(type="password", name="pw", placeholder = "Password", class="input")
+            footer(class="footer")
+                input(type="submit", value="Log in",class="button")
