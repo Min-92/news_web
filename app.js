@@ -6,11 +6,11 @@ const logger = require('morgan');
 const flash = require('connect-flash');
 const path = require('path');
 const passport = require('passport');
-const Strategy = require('passport-local').Strategy;
 
 const passportConfig = require('./passport/index');
 const authRouter = require('./routes/auth');
 const articlesRouter = require('./routes/articles');
+const indexRouter = require('./routes/index');
 
 const port = 3000;
 const mongoURI = 'mongodb://localhost/news';
@@ -39,7 +39,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', articlesRouter);
+app.use('/', indexRouter);
+app.use('/articles', articlesRouter);
 app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
@@ -54,10 +55,13 @@ app.use((err, req, res, next) => {
     res.render('error');
 })
 
-mongoose.connect((mongoURI), { 
-    useCreateIndex :  true ,
-    useNewUrlParser: true });
+mongoose.connect((mongoURI), {
+    useCreateIndex: true,
+    useNewUrlParser: true
+});
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
+
+module.exports = app;
