@@ -7,7 +7,7 @@ const flash = require('connect-flash');
 const path = require('path');
 const passport = require('passport');
 
-const passportConfig = require('./passport/index');
+const passportConfig = require('./passport/config');
 const authRouter = require('./routes/auth');
 const articlesRouter = require('./routes/articles');
 const indexRouter = require('./routes/index');
