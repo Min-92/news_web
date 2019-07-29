@@ -1,3 +1,4 @@
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
@@ -12,8 +13,8 @@ const authRouter = require('./routes/auth');
 const articlesRouter = require('./routes/articles');
 const indexRouter = require('./routes/index');
 
-const port = 3000;
-const mongoURI = 'mongodb://localhost/news';
+const port = process.env.PORT || 3000;
+const mongoURI = process.env.MONGO_URI;
 
 const app = express();
 
@@ -30,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    secret: '#newssecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
