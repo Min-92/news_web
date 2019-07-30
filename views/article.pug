@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    header
+        div= title
+        if user
+            div
+                form(action="/auth/logout",method="post")
+                    input(type="submit",value="Log out")
+        else 
+            div
+                form(action="/auth/login", method="get")
+                    input(type="submit",value="Log in")
+                form(action="/auth/signup", method="get")
+                    input(type="submit",value="Sign up")
+    main
+        section
+            article
+                header= articleTitle
+                img(src=img alt=articleTitle)
+                main-text= mainText
+            if user
+                form(action= actionURL,method="post")
+                    header= user
+                    input(type="text", name="comment", placeholder="댓글을 입력해 주세요")
+                    input(type="submit", value="submit")
+            else
+                form
+                    span 로그인이 필요합니다.
+            content
+                if comments
+                    each val in comments
+                        div
+                            span= val.user
+                            span= val.comment
+
+            
+            
