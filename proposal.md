@@ -32,19 +32,19 @@ nodejs Express 를 이용한 news 사이트 제작
 
 | function                 | method | uri                               |
 | ------------------------ | ------ | --------------------------------- |
-| 글 목록 보기             | get    | /articles                         |
-| 상세 글 보기             | get    | /articles/'articleNumber'         |
-| 글작성 페이지 가져오기   | get    | /new-form                         |
-| 글 post 하기             | post   | /articles                         |
-| 로그인 페이지 가져오기   | get    | /log-in                           |
-| 로그인 하기              | post   | /log-in                           |
-| 회원가입 페이지 가져오기 | get    | /sign-up                          |
-| 회원가입 하기            | post   | /sign-up                          |
-| 댓글 작성하기            | post   | /articles/'articleNumber'/comment |
-| 로그아웃 하기            | post   | /log-out                          |
-| 좋아요 누르기            | post   | /articles/'articleNumber'/like    |
-| 글 수정 페이지 가져오기  | get    | /articles/'articleNumber'/edit    |
-| 글 수정 보내기           | path   | /articles/'articleNumber'         |
+| 글 목록 보기             | GET    | /articles                         |
+| 상세 글 보기             | GET    | /articles/:number         |
+| 글작성 페이지 가져오기   | GET    | /new-form                         |
+| 글 post 하기             | POST   | /articles                         |
+| 로그인 페이지 가져오기   | GET    | /log-in                           |
+| 로그인 하기              | POST   | /log-in                           |
+| 회원가입 페이지 가져오기 | GET    | /sign-up                          |
+| 회원가입 하기            | POST   | /sign-up                          |
+| 댓글 작성하기            | POST   | /articles/:number/comment |
+| 로그아웃 하기            | POST   | /log-out                          |
+| 좋아요 누르기            | POST   | /articles/:number/like    |
+| 글 수정 페이지 가져오기  | GET    | /articles/:number/edit    |
+| 글 수정 보내기           | PATH   | /articles/:number         |
 
 
 
