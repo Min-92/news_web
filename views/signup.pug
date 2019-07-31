@@ -1,17 +1,33 @@
 extends layout
 
 block content
-    header(class="body-header")
-        div(class="title")= title
-        form(action="/auth/login", method="get", class="form")
-            input(type="submit", value="Log In", class="button")
-    main
-        form(action="/auth/signup", method="post", class= "auth-form")
-            header(class="header")
-                span Wellcome
-                div= message
-            div(class="content")
-                input(type="text", name="id", placeholder = "User ID", class="input")
-                input(type="password", name="pw", placeholder = "Password", class="input")
-            footer(class="footer")
-                input(type="submit", value="Sign up", class="button")
+    header(class="ui fixed inverted menu")
+        div(class="ui container")
+            a(href="/",class="header item")
+                img(class="logo",src="https://user-images.githubusercontent.com/26920620/62207025-0a5cce80-b3ce-11e9-87e7-452c42b51b5c.png",style='margin-right:1.5em')
+                = `NEWS`
+            div(class="right menu")
+                if user
+                    form(id="magic-form",action="/auth/logout", method="post",style="display:none")
+                    a(href="/auth/logout",class="item",
+                    onclick="event.preventDefault();document.getElementById('magic-form').submit();") Log out 
+                else
+                    a(href="/auth/login",class="item") Log in 
+                    a(href="/auth/signup",class="item") Sign up 
+
+    div(class='ui middle aligned center aligned grid',style="padding-top:300px")
+        div(class="cloumn",style="width: 400px")
+            h2(class="ui teal header",style="text-align:center")
+                div(class="content", style="color:#0E6EB8") Sign up
+            form(class="ui large form", action="/auth/signup",method="post")
+                div(class="ui stacked segment")
+                    div(style="color:#B03060")= message
+                    div(class="field")
+                    div(class="ui left icon input",style="width:100%")
+                        i(class="user icon")
+                        input(type="text" name="id" placeholder="ID")
+                    div(class="field")
+                    div(class="ui left icon input",style="width:100%")
+                        i(class="lock icon")
+                        input(type="password" name="pw" placeholder="Password")
+                    input(class="ui fluid large teal submit button",type="submit", value="Sign up",style="margin-top:20px;background:#0E6EB8")
