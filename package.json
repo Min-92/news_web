@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,18 +21,21 @@
     "bcrypt": "^3.0.6",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "http-errors": "^1.7.3",
-    "mocha": "^6.1.4",
-    "mongoose": "^5.6.5",
+    "mongoose": "^5.6.7",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "semantic-ui": "^2.4.2"
   },
   "devDependencies": {
+    "jest": "^24.8.0",
+    "mocha": "^6.2.0",
     "nodemon": "^1.19.1",
     "should": "^13.2.3",
     "sinon": "^7.3.2",
