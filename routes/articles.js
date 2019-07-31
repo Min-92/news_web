@@ -48,5 +48,20 @@ router.post('/comment/:number', isLoggedIn, async (req, res, next) => {
     res.redirect(`/articles/${number}`);
 });
 
+router.post('/like/:number', isLoggedIn, async (req, res, next) => {
+    const number = req.params.number;
+    const user = req.session.passport.user;
+    const article = await Article.findOne({ number });
+    const hasLiked = article.like.filter(obj => obj.user === user)[0];
+    if(!hasLiked) {
+        await article.like.push({user});
+    }else{
+        await article.like.pull(hasLiked._id);
+    }
+    await article.save();
+    res.redirect(`/articles/${number}`);
+});
+
+
 module.exports = router;
 
