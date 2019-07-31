@@ -1,16 +1,22 @@
-doctype html
-html
-    head 
-        meta(charset='utf-8')
-        link(rel='stylesheet' href='/css/style.css')
-        title articles
-    body
-        main
-            h1 articles
-            form(action="/auth/logout", method="post")
-                input(type="submit", value="logout")
-            form(action="/auth/login", method="get")
-                input(type="submit", value="login")
-            form(action="/auth/signup", method="get")
-                input(type="submit", value="signup")
-    script(type='text/javascript' src='/js/articles.js')
+extends layout
+
+block content
+    header 
+        div= title
+        if user
+            div
+                form(action="/auth/logout",method="post")
+                    input(type="submit",value="Log out")
+        else 
+            div
+                form(action="/auth/login", method="get")
+                    input(type="submit",value="Log in")
+                form(action="/auth/signup", method="get")
+                    input(type="submit",value="Sign up")
+    main
+        section
+            each article in articles
+                article(onclick=`location.href='/articles/${article.number}'`) 
+                    img(src=article.img art=article.title)
+                    header= article.title
+
