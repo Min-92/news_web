@@ -1,22 +1,30 @@
 extends layout
 
 block content
-    header 
-        div= title
-        if user
-            div
-                form(action="/auth/logout",method="post")
-                    input(type="submit",value="Log out")
-        else 
-            div
-                form(action="/auth/login", method="get")
-                    input(type="submit",value="Log in")
-                form(action="/auth/signup", method="get")
-                    input(type="submit",value="Sign up")
+    header(class="ui fixed inverted menu")
+        div(class="ui container")
+            a(href="/",class="header item")
+                img(class="logo",src="https://user-images.githubusercontent.com/26920620/62207025-0a5cce80-b3ce-11e9-87e7-452c42b51b5c.png",style='margin-right:1.5em')
+                = `NEWS`
+            div(class="right menu")
+                if user
+                    form(id="magic-form",action="/auth/logout", method="post",style="display:none")
+                    a(href="/auth/logout",class="item",
+                    onclick="event.preventDefault();document.getElementById('magic-form').submit();") Log out 
+                else
+                    a(href="/auth/login",class="item") Log in 
+                    a(href="/auth/signup",class="item") Sign up 
     main
-        section
-            each article in articles
-                article(onclick=`location.href='/articles/${article.number}'`) 
-                    img(src=article.img art=article.title)
-                    header= article.title
-
+        div(class="ui container")
+            div(class="ui three column doubling stackable grid",style="margin:100px")
+                each article in articlesInPage
+                    article(class="eight wide column", onclick=`location.href='/articles/${article.number}'`, style="cursor:pointer") 
+                        img(src=article.img art=article.title, style="width:100%")
+                        h3(class="ui header", style="margin-top:5px")= article.title
+        div(class="ui center aligned container")
+            div(class="ui pagination menu")
+                each val in pages
+                    if val == pageNumber
+                        div(class="active item")=val
+                    else    
+                        a(href=`/articles?page=${val}`,class="item")=val
