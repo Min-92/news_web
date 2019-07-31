@@ -1,40 +1,47 @@
 extends layout
 
 block content
-    header
-        div= title
+    if message
+        script alert('로그인이 필요합니다.') 
+
+    header(class="body-header")
+        div(class="title", onclick="location.href='/'", style="cursor:pointer;") NEWS
         if user
             div
-                form(action="/auth/logout",method="post")
-                    input(type="submit",value="Log out")
+                form(action="/auth/logout",method="post", class="form")
+                    input(type="submit",value="Log out", class="button")
         else 
-            div
-                form(action="/auth/login", method="get")
-                    input(type="submit",value="Log in")
-                form(action="/auth/signup", method="get")
-                    input(type="submit",value="Sign up")
+            div(style="display:flex")
+                form(action="/auth/login", method="get", class="form")
+                    input(type="submit",value="Log in", class="button")
+                form(action="/auth/signup", method="get", class="form")
+                    input(type="submit",value="Sign up", class="button")
     main
-        section
+        section(class="article-section")
             article
-                header= articleTitle
                 img(src=img alt=articleTitle)
-                main-text= mainText
-                form(action=`/articles/like/${number}`,method="post")
-                    input(type="submit", value=`♡${like}`)
+                header(class="header")= articleTitle
+                p= mainText
+                form(action=`/articles/like/${number}`,method="post",class="like")
+                    if hasLiked
+                        input(type="image",alt="Submit", src="https://user-images.githubusercontent.com/26920620/62191003-9b6f7d80-b3ad-11e9-9cdb-f0bf0dbdad61.png")
+                    else
+                        input(type="image",alt="Submit", src="https://user-images.githubusercontent.com/26920620/62191007-9dd1d780-b3ad-11e9-90b6-4f757a534511.png")
+                        
+                    span= like
             if user
-                form(action= `/articles/comment/${number}`,method="post")
-                    header= user
-                    input(type="text", name="comment", placeholder="댓글을 입력해 주세요")
-                    input(type="submit", value="submit")
+                form(action= `/articles/comment/${number}`,method="post",class="comment-input")
+                    input(type="text", name="comment", placeholder="댓글을 입력해 주세요",id='text')
+                    input(type="submit", value="submit",id="submit")
             else
-                form
-                    span 로그인이 필요합니다.
+                form(action='/auth/login',class="comment-input")
+                    input(type="submit", value="로그인이 필요합니다.",id="login") 
             content
                 if comments
                     each val in comments
-                        div
-                            span= val.user
-                            span= val.comment
+                        div(class="comments")
+                            div(id="user")= val.user
+                            div(id="comment")= val.comment
 
             
             
