@@ -4,6 +4,10 @@ module.exports = {
         let message;
         if (fmsg.error) message = fmsg.error[0];
         return message
+    },
+
+    getUser : (req) => {
+        return req.isAuthenticated() ? req.session.passport.user : undefined
     }
 }
 
