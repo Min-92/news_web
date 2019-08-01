@@ -21,8 +21,9 @@ block content
             div(class="ui three column doubling stackable grid",style="margin:100px")
                 each article in articlesInPage
                     article(class="eight wide column", onclick=`location.href='/articles/${article.number}'`, style="cursor:pointer") 
-                        img(src=article.img art=article.title, style="width:100%")
-                        h3(class="ui header", style="margin-top:5px")= article.title
+                        div(class="ui segment")
+                            img(src=article.img art=article.title, style="width:100%; object-fit:contain; height:250px")
+                            h3(class="ui center aligned header", style="margin-top:5px")= article.title
         div(class="ui center aligned container",style="margin-bottom:50px")
             div(class="ui pagination menu")
                 each val in pages

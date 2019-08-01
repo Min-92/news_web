@@ -1,7 +1,7 @@
 const express = require('express');
 const { Article } = require('../models/database');
 const router = express.Router();
-const { isLoggedIn ,isAdmin } = require('./middlewares');
+const { isLoggedIn, isAdmin } = require('./middlewares');
 const { getMessage, getUser } = require('../controller');
 
 const numberOfArticlesInPage = 6;
@@ -38,7 +38,7 @@ router.get('/', async (req, res, next) => {
 });
 router.get('/form', isLoggedIn, isAdmin, (req, res, next) => {
     const user = getUser(req);
-    res.render('articleForm',{user});
+    res.render('articleForm', { user });
 });
 
 router.get('/:number', async (req, res, next) => {
@@ -63,6 +63,21 @@ router.get('/:number', async (req, res, next) => {
         hasLiked
     });
 });
+
+router.post('/', async (req, res) => {
+    const { title, body, img } = req.body;
+    const articles = await Article.find();
+    const article = new Article({
+        title,
+        main: body,
+        img,
+        number: articles.length + 1
+    })
+    article.save();
+
+    res.redirect('/');
+
+})
 
 router.post('/comment/:number', isLoggedIn, async (req, res, next) => {
     const number = req.params.number;
