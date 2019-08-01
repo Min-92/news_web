@@ -9,7 +9,7 @@ const numberOfArticlesInPage = 6;
 router.get('/', async (req, res, next) => {
     const pageNumber = req.query.page || 1;
     const skipCount = numberOfArticlesInPage * (pageNumber - 1);
-    const user = getUser(req);
+    const user = await getUser(req);
     const message = getMessage(req);
 
     const articles = await Article.find({ hidden: false }).sort({ number: -1 });
@@ -25,7 +25,6 @@ router.get('/', async (req, res, next) => {
     for (let i = 1; i <= maxPage; i++) {
         pages.push(i);
     }
-
     res.render('articles', {
         title: "News",
         articlesInPage,
@@ -36,8 +35,8 @@ router.get('/', async (req, res, next) => {
     });
 
 });
-router.get('/form', isLoggedIn, isAdmin, (req, res, next) => {
-    const user = getUser(req);
+router.get('/form', isLoggedIn, isAdmin, async (req, res, next) => {
+    const user = await getUser(req);
     res.render('articleForm', { user });
 });
 
@@ -46,7 +45,7 @@ router.get('/:number', async (req, res, next) => {
     const article = await Article.findOne({ number });
 
     if (!article) next();
-    const user = getUser(req);
+    const user = await getUser(req);
     const hasLiked = article.like.filter(obj => obj.user === user)[0];
     const message = getMessage(req);
 
