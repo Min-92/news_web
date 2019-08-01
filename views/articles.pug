@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    if message
+        script alert(`#{message}`); 
     header(class="ui fixed inverted menu")
         div(class="ui container")
             a(href="/",class="header item")
@@ -21,7 +23,7 @@ block content
                     article(class="eight wide column", onclick=`location.href='/articles/${article.number}'`, style="cursor:pointer") 
                         img(src=article.img art=article.title, style="width:100%")
                         h3(class="ui header", style="margin-top:5px")= article.title
-        div(class="ui center aligned container")
+        div(class="ui center aligned container",style="margin-bottom:50px")
             div(class="ui pagination menu")
                 each val in pages
                     if val == pageNumber

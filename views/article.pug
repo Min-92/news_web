@@ -2,7 +2,7 @@ extends layout
 
 block content
     if message
-        script alert('로그인이 필요합니다.') 
+        script alert(`#{message}`);
 
     block content
     header(class="ui fixed inverted menu")
