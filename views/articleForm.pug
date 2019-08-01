@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    header(class="ui fixed inverted menu")
+        div(class="ui container")
+            a(href="/",class="header item")
+                img(class="logo",src="https://user-images.githubusercontent.com/26920620/62207025-0a5cce80-b3ce-11e9-87e7-452c42b51b5c.png",style='margin-right:1.5em')
+                = `NEWS`
+            div(class="right menu")
+                if user
+                    form(id="magic-form",action="/auth/logout", method="post",style="display:none")
+                    a(href="/auth/logout",class="item",
+                    onclick="event.preventDefault();document.getElementById('magic-form').submit();") Log out 
+                else
+                    a(href="/auth/login",class="item") Log in 
+                    a(href="/auth/signup",class="item") Sign up 
+    main
+        div(class="ui container")
+            form(class="ui form",action="/articles", method="post", style="margin:150px")
+                div(class="field")
+                    label Title
+                    input(type="text", name="title")
+                div(class="field")
+                    label Image
+                    input(type="text", name="img")
+                div(class="field")
+                    label Body
+                    textarea(name="body")
+                button(class="ui button", type="submit") Submit

@@ -1,15 +1,16 @@
 const express = require('express');
 const { Article } = require('../models/database');
 const router = express.Router();
-const { isLoggedIn } = require('./middlewares');
-const { getMessage } = require('../controller');
+const { isLoggedIn ,isAdmin } = require('./middlewares');
+const { getMessage, getUser } = require('../controller');
 
 const numberOfArticlesInPage = 6;
 
 router.get('/', async (req, res, next) => {
     const pageNumber = req.query.page || 1;
     const skipCount = numberOfArticlesInPage * (pageNumber - 1);
-    const user = req.isAuthenticated() ? req.session.passport.user : undefined;
+    const user = getUser(req);
+    const message = getMessage(req);
 
     const articles = await Article.find({ hidden: false }).sort({ number: -1 });
 
@@ -30,9 +31,14 @@ router.get('/', async (req, res, next) => {
         articlesInPage,
         user,
         pageNumber,
-        pages
+        pages,
+        message
     });
 
+});
+router.get('/form', isLoggedIn, isAdmin, (req, res, next) => {
+    const user = getUser(req);
+    res.render('articleForm',{user});
 });
 
 router.get('/:number', async (req, res, next) => {
@@ -40,7 +46,7 @@ router.get('/:number', async (req, res, next) => {
     const article = await Article.findOne({ number });
 
     if (!article) next();
-    const user = req.isAuthenticated() ? req.session.passport.user : undefined;
+    const user = getUser(req);
     const hasLiked = article.like.filter(obj => obj.user === user)[0];
     const message = getMessage(req);
 
@@ -56,7 +62,6 @@ router.get('/:number', async (req, res, next) => {
         message,
         hasLiked
     });
-
 });
 
 router.post('/comment/:number', isLoggedIn, async (req, res, next) => {
