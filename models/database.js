@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     authority: { type: String, default: "normal" }
 },{ timestamps: { createdAt: 'created_at' }})
 
-const User = mongoose.model('User', userSchema);
+const User = new mongoose.model('User', userSchema);
 
 const articleSchema = new mongoose.Schema({
     title: { type: String, required : true},
