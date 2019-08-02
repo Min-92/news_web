@@ -15,6 +15,13 @@ const { User } = require('../models/database')
                 return user;
             }
             return undefined;
+        },
+
+        isHasLiked : (article, user) => {
+            if(user){
+                return article.like.filter(obj => `${user._id}` === `${obj._id}`)[0];
+            }
+            return undefined;
         }
     }
 

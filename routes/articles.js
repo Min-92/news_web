@@ -2,7 +2,7 @@ const express = require('express');
 const { Article } = require('../models/database');
 const router = express.Router();
 const { isLoggedIn, isAdmin } = require('./middlewares');
-const { getMessage, getUser } = require('../controller');
+const { getMessage, getUser, isHasLiked } = require('../controller');
 
 const numberOfArticlesInPage = 6;
 
@@ -46,7 +46,7 @@ router.get('/:number', async (req, res, next) => {
 
     if (!article) next();
     const user = await getUser(req);
-    const hasLiked = article.like.filter(obj => obj.user === user)[0];
+    const hasLiked = isHasLiked(article,user);
     const message = getMessage(req);
 
     res.render('article', {
@@ -92,14 +92,14 @@ router.post('/comment/:number', isLoggedIn, async (req, res, next) => {
 
 router.post('/like/:number', isLoggedIn, async (req, res) => {
     const number = req.params.number;
-    const user = req.session.passport.user;
+    const user = await getUser(req);
     const article = await Article.findOne({ number });
-    const hasLiked = article.like.filter(obj => obj.user === user)[0];
-
+    const hasLiked = isHasLiked(article,user);
+    
     if (hasLiked) {
         await article.like.pull(hasLiked._id);
     } else {
-        await article.like.push({ user });
+        await article.like.push( user._id );
     }
     await article.save();
 
