@@ -44,7 +44,7 @@ router.get('/:number', async (req, res, next) => {
     const number = req.params.number;
     const article = await Article.findOne({ number });
 
-    if (!article) next();
+    if (!article) return next();
     const user = await getUser(req);
     const hasLiked = isHasLiked(article,user);
     const message = getMessage(req);

@@ -25,7 +25,7 @@ exports.isNotLoggedIn = (req, res, next) => {
 exports.isAdmin = async (req,res,next) => {
     const id = req.session.passport.user;
     const user = await User.findOne({ id });
-    if(user.authority === "super") next();
+    if(user.authority === "super") return next();
     req.flash('error', '권한이 없습니다.');
     res.redirect('/')
 }
