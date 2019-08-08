@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost/news';
-
-mongoose.connect((mongoURI), { useNewUrlParser: true });
 const db = mongoose.connection;
 
 const userSchema = new mongoose.Schema({
