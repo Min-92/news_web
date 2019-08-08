@@ -27,7 +27,7 @@ block content
                     div(class="field")
                         label Body
                         textarea(id="input-body",name="body")= main
-                    button(class="ui button", onclick=`sendReq(${number});`
+                    button(class="ui button", onclick=`sendPatchArticleReq(${number});`
                     ) Submit
             else
                 form(class="ui form",action="/articles", method="post", style="margin:150px")
@@ -41,4 +41,4 @@ block content
                         label Body
                         textarea(name="body")= main
                     button(class="ui button", type="submit") Submit
-        script(src="/js/form.js")
+        script(src="/js/article.js")
