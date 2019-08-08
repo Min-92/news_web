@@ -62,6 +62,14 @@ router.patch('/:number', isLoggedIn, isAdmin, async (req,res,next)=> {
     res.redirect('/');
 })
 
+router.delete('/:number', isLoggedIn, isAdmin, async (req,res,next)=> {
+    const number = req.params.number;
+    await Article.find({number}).update({
+        hidden:true
+    });
+    res.redirect('/');
+})
+
 router.get('/:number', async (req, res, next) => {
     const number = req.params.number;
     const article = await Article.findOne({ number });

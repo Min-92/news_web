@@ -36,6 +36,7 @@ block content
                     if user.authority == 'super'
                         div(class="ui right aligned container")
                             button(onclick=`location.href='/articles/form/${number}'`,class="ui grey basic button") Update
+                            button(onclick=`sendDeleteArticleReq(${number})`,class="ui grey basic button") Delete
             div(class="ui comments",style="padding:0px 0 20px 0")
                 h3(class="ui dividing header") Comments
                 if user
@@ -51,3 +52,4 @@ block content
                                 div(class="content")
                                     div(class="author",style="margin: 0 0 5px 0;")= val.user
                                     div(class="metadata",style="color:#A0A0A0")= val.comment
+    script(src="/js/article.js")

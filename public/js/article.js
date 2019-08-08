@@ -14,7 +14,17 @@ const sendPatchArticleReq = (number) => {
     }).catch(err => {
         console.log(err);
     })
-
-
 }    
 
+
+const sendDeleteArticleReq = (number) => {
+    fetch(`/articles/${number}`, {
+        method: "DELETE"
+    }).then(res => {
+        if(res.redirected){
+            window.location.href = res.url;
+        }
+    }).catch(err => {
+        console.log(err);
+    })
+}
