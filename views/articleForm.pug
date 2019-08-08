@@ -16,14 +16,29 @@ block content
                     a(href="/auth/signup",class="item") Sign up 
     main
         div(class="ui container")
-            form(class="ui form",action="/articles", method="post", style="margin:150px")
-                div(class="field")
-                    label Title
-                    input(type="text", name="title")
-                div(class="field")
-                    label Image
-                    input(type="text", name="img")
-                div(class="field")
-                    label Body
-                    textarea(name="body")
-                button(class="ui button", type="submit") Submit
+            if title
+                div(class="ui form",style="margin:150px")
+                    div(class="field")
+                        label Title
+                        input(id="input-title",type="text", name="title", value=title)
+                    div(class="field")
+                        label Image
+                        input(id="input-img",type="text", name="img", value=img)
+                    div(class="field")
+                        label Body
+                        textarea(id="input-body",name="body")= main
+                    button(class="ui button", onclick=`sendReq(${number});`
+                    ) Submit
+            else
+                form(class="ui form",action="/articles", method="post", style="margin:150px")
+                    div(class="field")
+                        label Title
+                        input(type="text", name="title", value=title)
+                    div(class="field")
+                        label Image
+                        input(type="text", name="img", value=img)
+                    div(class="field")
+                        label Body
+                        textarea(name="body")= main
+                    button(class="ui button", type="submit") Submit
+        script(src="/js/form.js")

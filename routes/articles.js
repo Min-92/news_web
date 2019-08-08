@@ -40,6 +40,28 @@ router.get('/form', isLoggedIn, isAdmin, async (req, res, next) => {
     res.render('articleForm', { user });
 });
 
+router.get('/form/:number', isLoggedIn, isAdmin, async (req, res, next) => {
+    const number = req.params.number;
+    const article = await Article.findOne({ number });
+    if(!article) return next();
+
+    const {title, img, main} = article;
+
+    const user = await getUser(req);
+    res.render('articleForm', { user, title, img, main, number });
+});
+
+router.patch('/:number', isLoggedIn, isAdmin, async (req,res,next)=> {
+    const number = req.params.number;
+    const { title, body, img } = req.body;
+    await Article.find({number}).update({
+        title,
+        main:body,
+        img
+    });
+    res.redirect('/');
+})
+
 router.get('/:number', async (req, res, next) => {
     const number = req.params.number;
     const article = await Article.findOne({ number });
