@@ -1,30 +1,40 @@
-const sendPatchArticleReq = (number) => {
+const sendPatchArticleReq = async (number) => {
     const title = document.querySelector('#input-title').value;
     const img = document.querySelector('#input-img').value;
     const body = document.querySelector('#input-body').value;
-    
-    fetch(`/articles/${number}`, {
-        method: "PATCH",
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `title=${title}&img=${img}&body=${body}`
-    }).then(res => {
-        if(res.redirected){
-            window.location.href = res.url;
+
+    try {
+        const res = await fetch(`/articles/${number}`, {
+            method: "PATCH",
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `title=${title}&img=${img}&body=${body}`
+        })
+
+        if (res.redirected) {
+            return window.location.href = res.url;
         }
-    }).catch(err => {
-        console.log(err);
-    })
-}    
+
+        throw new Error();
+
+    } catch (err) {
+        console.err(err);
+    }
+}
 
 
-const sendDeleteArticleReq = (number) => {
-    fetch(`/articles/${number}`, {
-        method: "DELETE"
-    }).then(res => {
-        if(res.redirected){
-            window.location.href = res.url;
+const sendDeleteArticleReq = async (number) => {
+    try {
+        const res = await fetch(`/articles/${number}`, {
+            method: "DELETE"
+        })
+  
+        if (res.redirected) {
+            return window.location.href = res.url;
         }
-    }).catch(err => {
-        console.log(err);
-    })
+
+        throw new Error();
+  
+    } catch (err) {
+        console.err(err);
+    }
 }
