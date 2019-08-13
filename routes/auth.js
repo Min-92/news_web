@@ -1,4 +1,3 @@
-const passport = require('passport');
 const express = require('express');
 const {getLogin, postLogin, getSignup, postSignup, postLogout} = require('../controller/authController');
 
@@ -7,7 +6,7 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 
 router.get('/login', isNotLoggedIn, getLogin);
-router.post('/login', isNotLoggedIn, postLogin(passport));
+router.post('/login', isNotLoggedIn, postLogin);
 
 router.get('/signup', getSignup);
 router.post('/signup', isNotLoggedIn, postSignup);
