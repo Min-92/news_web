@@ -23,7 +23,7 @@ block content
             article
                 img(src=img alt=articleTitle,style="width:100%")
                 h1(class="ui header")= articleTitle
-                p= mainText
+                p(style="white-space : pre-line")= mainText
                 form(action=`/articles/like/${number}`,method="post",class="like")
                     if hasLiked
                         input(type="image",alt="Submit", src="https://user-images.githubusercontent.com/26920620/62191003-9b6f7d80-b3ad-11e9-9cdb-f0bf0dbdad61.png")
