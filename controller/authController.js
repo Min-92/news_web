@@ -1,28 +1,42 @@
 const { User } = require('../models/database');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const jwtSecrete = process.env.JWT_SECRET;
 const saltRounds = 10;
-const passport = require('passport');
+const cookieMaxAge = 60 * 60 * 24 * 14;
 
 const { getMessage } = require('./');
 
+const compare = async (pw, hash) => {
+    const result = await bcrypt.compare(pw, hash);
+    return result;
+}
+
+const loginFail = (req, res, message) => {
+    req.flash('error', message);
+    return res.redirect('/auth/login');
+}
+
 module.exports = {
+
     getLogin: (req, res, next) => {
         const message = getMessage(req);
         res.render('login', { title: "Log In", message })
     },
 
-    postLogin: (req, res, next) => {
-        passport.authenticate('local',
-            (err, user, info) => {
-                if (info) req.flash('error', `${info.message}`);
-                if (err) return next(err);
-                if (!user) return res.redirect('/auth/login');
-                req.logIn(user, (err) => {
-                    if (err) { return next(err); }
-                    return res.redirect('/');
-                });
-            }
-        )(req, res, next)
+    postLogin: async (req, res, next) => {
+        const { id, pw } = req.body;
+        if (!id) return loginFail(req, res, 'ID field is required');
+        if (!pw) return loginFail(req, res, 'PW field is required');
+
+        const user = await User.findOne({ id });
+        if (!user) return loginFail(req, res, 'Invalid ID');
+        if (!await compare(pw, user.pw)) return loginFail(req, res, 'Invalid password');
+
+        const token = jwt.sign({ id }, jwtSecrete);
+        res.cookie('token', token, { path: '/', httpOnly: true, maxAge: cookieMaxAge });
+        res.redirect('/');
     },
 
     getSignup: (req, res, next) => {
