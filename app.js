@@ -7,6 +7,8 @@ const logger = require('morgan');
 const cors = require('cors');
 const flash = require('connect-flash');
 const path = require('path');
+const MongoStore = require('connect-mongo')(session);
+
 
 const authRouter = require('./routes/auth');
 const articlesRouter = require('./routes/articles');
@@ -36,7 +38,8 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 60000 },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 app.use(flash());
 app.use(verifyToken);
