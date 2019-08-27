@@ -6,19 +6,18 @@ const express = require('express');
 const logger = require('morgan');
 const flash = require('connect-flash');
 const path = require('path');
-const passport = require('passport');
 
-const passportConfig = require('./passport/config');
 const authRouter = require('./routes/auth');
 const articlesRouter = require('./routes/articles');
 const indexRouter = require('./routes/index');
+
+const {verifyToken} = require('./routes/middlewares')
 
 const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
 
 const app = express();
 
-passportConfig(passport);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -36,9 +35,7 @@ app.use(session({
     saveUninitialized: true
 }))
 app.use(flash());
-
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(verifyToken);
 
 app.use('/', indexRouter);
 app.use('/articles', articlesRouter);
