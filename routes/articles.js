@@ -111,7 +111,7 @@ router.post('/', async (req, res) => {
 router.post('/comment/:number', isLoggedIn, async (req, res, next) => {
     const number = req.params.number;
     const { comment } = req.body;
-    const user = req.session.passport.user;
+    const user = req.decoded.id;
     const article = await Article.findOne({ number });
 
     await article.comments.push({ user, comment });
