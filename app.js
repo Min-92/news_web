@@ -12,6 +12,7 @@ const articlesRouter = require('./routes/articles');
 const indexRouter = require('./routes/index');
 
 const {verifyToken} = require('./routes/middlewares')
+const authorizer = require('./authorizer')
 
 const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
@@ -36,6 +37,7 @@ app.use(session({
 }))
 app.use(flash());
 app.use(verifyToken);
+app.use(authorizer.initialize);
 
 app.use('/', indexRouter);
 app.use('/articles', articlesRouter);
