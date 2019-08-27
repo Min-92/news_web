@@ -1,11 +1,9 @@
 const { User } = require('../models/database');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { getMessage } = require('./');
 
-const jwtSecrete = process.env.JWT_SECRET;
 const saltRounds = 10;
-const cookieMaxAge = 60 * 60 * 24 * 14;
+
 const failMessage = {
     emptyID: 'ID field is required',
     emptyPW: 'PW field is required',
@@ -38,11 +36,10 @@ module.exports = {
 
         const user = await User.findOne({ id });
         if (!user) return loginFail(req, res, failMessage.wrongID);
-        if (!await compare(pw, user.pw)) return loginFail(req, res, failMessage.wrongPW);
+        if (!(await compare(pw, user.pw))) return loginFail(req, res, failMessage.wrongPW);
 
-        const token = jwt.sign({ id }, jwtSecrete);
-        res.cookie('token', token, { path: '/', httpOnly: true, maxAge: cookieMaxAge });
-        res.redirect('/');
+        req.login(id);
+        return res.redirect('/');
     },
 
     getSignup: (req, res, next) => {
@@ -60,6 +57,8 @@ module.exports = {
             }
             const hash = await bcrypt.hash(pw, saltRounds);
             await User.create({ id, pw: hash });
+
+            req.login(id);
             return res.redirect('/');
         } catch (error) {
             console.error(error);
@@ -69,7 +68,6 @@ module.exports = {
 
     postLogout: (req, res) => {
         req.logout();
-        req.session.destroy();
         res.redirect('/');
     },
 
