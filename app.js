@@ -4,6 +4,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const express = require('express');
 const logger = require('morgan');
+const cors = require('cors');
 const flash = require('connect-flash');
 const path = require('path');
 
@@ -24,6 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,6 +40,7 @@ app.use(session({
 app.use(flash());
 app.use(verifyToken);
 app.use(authorizer.initialize);
+
 
 app.use('/', indexRouter);
 app.use('/articles', articlesRouter);
