@@ -15,6 +15,7 @@ const articlesRouter = require('./routes/articles');
 const indexRouter = require('./routes/index');
 
 const {verifyToken} = require('./routes/middlewares')
+const {db} = require('./models/database')
 const authorizer = require('./authorizer')
 
 const port = process.env.PORT || 3000;
@@ -39,7 +40,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: db })
 }))
 app.use(flash());
 app.use(verifyToken);
