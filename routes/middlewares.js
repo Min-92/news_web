@@ -14,7 +14,6 @@ exports.isLoggedIn = (req, res, next) => {
             res.redirect('/');
         }
     }
-    next();
 }
 
 exports.isNotLoggedIn = (req, res, next) => {
@@ -23,11 +22,10 @@ exports.isNotLoggedIn = (req, res, next) => {
     } else {
         res.redirect('/');
     }
-    next(); 
 }
 
 exports.isAdmin = async (req, res, next) => {
-    const id = req.session.passport.user;
+    const id = req.decoded.id;
     const user = await User.findOne({ id });
     if (user.authority === 'super') return next();
     req.flash('error', '권한이 없습니다.');

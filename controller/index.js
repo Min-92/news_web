@@ -10,7 +10,7 @@ const { User } = require('../models/database')
 
         getUser: async (req) => {
             if(req.isAuthenticated()){
-                const id = req.session.passport.user;
+                const id = req.decoded.id;
                 const user = await User.findOne({id});
                 return user;
             }
