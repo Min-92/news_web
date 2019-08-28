@@ -5,8 +5,7 @@ const userSchema = new mongoose.Schema({
     id: { type: String, required: true, unique: true },
     pw: { type: String},
     token: { type: String},
-    authority: { type: String, default: "normal" },
-    resource: { type: String, default: "news" }
+    authority: { type: String, default: "normal" }
 },{ timestamps: { createdAt: 'created_at' }})
 
 const User = new mongoose.model('User', userSchema);
