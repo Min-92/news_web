@@ -23,5 +23,4 @@ class Authorizer {
     }
 }
 
-const authorizer = new Authorizer();
-module.exports = authorizer;
+module.exports = new Authorizer();
