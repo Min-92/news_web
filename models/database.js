@@ -3,8 +3,10 @@ const db = mongoose.connection;
 
 const userSchema = new mongoose.Schema({
     id: { type: String, required: true, unique: true },
-    pw: { type: String, required: true },
-    authority: { type: String, default: "normal" }
+    pw: { type: String},
+    token: { type: String},
+    authority: { type: String, default: "normal" },
+    resource: { type: String, default: "news" }
 },{ timestamps: { createdAt: 'created_at' }})
 
 const User = new mongoose.model('User', userSchema);
