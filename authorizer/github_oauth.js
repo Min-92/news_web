@@ -21,10 +21,8 @@ class GithubOauth {
             method: 'POST',
             json: true
         };
-
         request.post(options, (err, response, body) => {
             if (err) return next(err);
-
             const token = body.access_token;
 
             const headers = {
@@ -35,13 +33,13 @@ class GithubOauth {
                 const userData = JSON.parse(innerBody);
                 const id = userData.login + '@github'
 
-                callback(id, req, res);
+                callback(id, req, res, token);
             });
         });
     }
 
 
-    async localLogin(id, req, res) {
+    async localLogin(id, req, res, token) {
         const user = await User.findOne({ id });
         if (!user) await User.create({ id, token });
 
