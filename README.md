@@ -6,13 +6,9 @@
 > news website by using express
 > 관리자가 1명인 웹사이트
 
-### 🏠 [Homepage](http://news.wangmin.ga/articles)
+### 🏠 [Homepage](http://news.wangmin.ga/articles)  :page_facing_up:[Proposal](https://github.com/Min-92/news_web/blob/master/proposal.md)
 
 ![](https://user-images.githubusercontent.com/26920620/69126618-f4455c00-0aeb-11ea-9a55-bd48ddbc5ffd.png)
-
-
-## Proposal
-[Proposal](https://github.com/Min-92/news_web/blob/master/proposal.md)
 
 ## Install
 
