@@ -36,7 +36,7 @@
     "path": "^0.12.7",
     "pug": "^2.0.4",
     "request": "^2.88.0",
-    "semantic-ui": "^2.4.2"
+    "semantic-ui": "^2.5.0"
   },
   "devDependencies": {
     "jest": "^24.8.0",
